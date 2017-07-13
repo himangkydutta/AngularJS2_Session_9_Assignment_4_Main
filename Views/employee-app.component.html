@@ -1,0 +1,101 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-wrap">
+                    <h1>Add Employee</h1>
+                    <form #femp="ngForm" novalidate autocomplete="off" (ngSubmit)="AddEmployee()">
+                        <div class="form-group">
+                            <label for="empName">Employee Name</label>
+                            <!--Using required, minimum and maximum-->
+                            <input type="text" class="form-control" [(ngModel)]="currentEmployee.empName" name="empName" id="empName" placeholder="Employee Name" 
+                                    required #reqempNm ='ngModel' pattern="^[a-zA-Z0-9]*$" maxlength="20" minlength="5">
+                            <!--Show and hide validation error message-->
+                            <div *ngIf="reqempNm.errors && (reqempNm.dirty || reqempNm.touched)" class="alert alert-danger">
+                                <div [hidden]="!reqempNm.error.required">
+                                    Employee Name is required.
+                                </div>
+                                <div [hidden]="!reqempNm.errors.pattern">
+                                        Please enter alphabetic.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="empId">Employee ID</label>
+                            <!--Using required, minimum and maximum-->
+                            <input type="text" class="form-control" [(ngModel)]="currentEmployee.empId" name="empCode" id="empId"
+                                 placeholder="Employee ID" required #reqempId ='ngModel' pattern="^[a-zA-Z0-9]*$" maxlength="15" minlength="5">
+                                 <!--Show and hide validation error message-->
+                            <div *ngIf="reqempId.errors && (reqempId.dirty || reqempId.touched)" class="alert alert-danger">
+                                <div [hidden]="!reqempId.error.required">
+                                    Employee ID is required.
+                                </div>
+                                <div [hidden]="!reqempId.errors.pattern">
+                                        Please enter alphanumeric.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="empSalary">Employee Salary</label>
+                            <!--Using required, minimum and maximum-->
+                            <input type="text" class="form-control" [(ngModel)]="currentEmployee.empSalary" name="empSalary" id="empSalary"
+                                 placeholder="Employee Salary" required #reqempSal ='ngModel' pattern="^[0-9]*$" maxlength="30" minlength="6">
+                                 <!--Show and hide validation error message-->
+                            <div *ngIf="reqempSal.errors && (reqempSal.dirty || reqempSal.touched)" class="alert alert-danger">
+                                <div [hidden]="!reqempSal.error.required">
+                                    Employee Salary is required.
+                                </div>
+                                <div [hidden]="!reqempSal.errors.pattern">
+                                    Please enter numeric.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="empTitle">Employee Title</label>
+                            <select class="form-control" [(ngModel)]="currentEmployee.empTitlList"  required #reqempTitl ='ngModel'name="empTitle">
+                                <option [value]="empTitle" [disabled]="true">Select Option</option>
+                                <option *ngFor = "let titleList of empTitlList" [ngValue]="titleList.Title">
+                                    {{titleList.Title}}
+                                </option>
+                            </select>
+                            <!--Show and hide validation error message-->
+                            <div *ngIf="reqempTitl.errors && (reqempTitl.dirty || reqempTitl.touched)" class="alert alert-danger">
+                                <div [hidden]="!reqempTitl.error.required">
+                                        Employee Title is required.
+                                </div>
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-primary  btn-lg btn-block" value="Add" [disabled]="femp.invalid">
+                    </form>
+                    <hr>
+                </div>
+                <div>
+                    <table *ngIf="empList.length > 0" class="table">
+                        <thead>
+                            <tr>
+                                <th>Index</th>
+                                <th>Employee Name</th>
+                                <th>Employee ID</th>
+                                <th>Employee Salary</th>
+                                <th>Employee Title</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let emp of empList;let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{ emp.empName }}</td>
+                                <td>{{ emp.empId }}</td>
+                                <td>{{ emp.empSalary }}</td>
+                                <td>{{ emp.empTitlList }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.col-xs-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+<hr/>
